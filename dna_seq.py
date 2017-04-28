@@ -13,6 +13,9 @@ def nuc_seq(sequence, base, sig_digs=2):
     # Return the frequency and the length
     return(length, freq_of_base)
 
+# Key = feature type
+# Value = concatenation of all sequences 
+FS = {}
 
 # Read FASTA file
 data1 = open('watermelon.fsa', 'r')
@@ -66,32 +69,20 @@ for line in data2:
 
     # extract this feature from the genome
     fragment = gen[start-1:end]
-    fragment = clean_seq(fragment) 
+    fragment = clean_seq(fragment)
     
-    if type == 'CDS':
-        CDS += fragment
-
-    if type == 'intron':
-        IN += fragment
-
-    if type == 'misc_feature':
-        MF += fragment
-
-    if type == 'repeat_region':
-        RR += fragment
-
-    if type == 'rRNA':
-        rRNA += fragment
-
-    if type == 'tRNA':
-        tRNA += fragment
-
-list_FT = [CDS, IN, tRNA, rRNA, MF, RR]
-for FT in list_FT:
-    for nucleotide in ['A', 'T', 'G', 'C']:
-        (Fl, Fc) = nuc_seq(FT, nucleotide, sig_digs=2)
-        print(str(type) +'\t' + str(Fl) + str(Fc) +'%\t' + nucleotide)
-
-
+    if type in FS:
+        FS[type] += fragment
+    else:
+        FS[type] = fragment
+ 
 # close the GFF file
 data2.close()
+
+# Print the output of the problems with the gene names and the sequence
+
+for f, s in FS.items():
+    for nucleotide in ['A','T','G','C']:
+        (FL, FC) = nuc_seq(type, nucleotide, sig_digs=2)
+        print( + '\t' + len(s) + str(FC))
+    
