@@ -1,3 +1,17 @@
+import sys
+
+#usage = sys.argv[0] + ": genome.fasta features.gff"
+
+#if len(sys.argv) < 3:
+ #   print(usage)
+  #  sys.exit("\nThis script requires both a FASTA file and a GFF file\n")
+
+#genome = sys.argv[1]
+#gff    = sys.argv[2]
+
+#data1 = open(genome, 'r')
+#data2 = open(gff, 'r')
+
 # Read FASTA file
 data1 = open('watermelon.fsa', 'r')
 
@@ -96,25 +110,43 @@ tr = round(trna/gen1*100, 2)
 rr = round(rrna/gen1*100, 2)
 
 # Print the output
-print('CDS', exon, str(exon1) + '%', str(GC_CDS))
-print('Intron', intron, str(intron1) + '%', str(GC_IN))
-print('Misc Features', misc, str(misc1) + '%', str(GC_MF))
-print('Repeat Region', repeat, str(repeat1) + '%', str(GC_RR))
-print('tRNA', trna, str(tr) + '%', str(GC_tRNA))
-print('rRNA', rrna, str(rr) + '%', str(GC_rRNA))
+print('CDS\t', exon, str(exon1) + '%', str(GC_CDS))
+print('Intron\t', intron, str(intron1) + '%', str(GC_IN))
+print('Misc Features\t', misc, str(misc1) + '%', str(GC_MF))
+print('Repeat Region\t', repeat, str(repeat1) + '%', str(GC_RR))
+print('tRNA\t', trna, str(tr) + '%', str(GC_tRNA))
+print('rRNA\t', rrna, str(rr) + '%', str(GC_rRNA))
+
+# Print A, T, G, C percent
+print('CDS\t', str(round(CDS.count('A')/exon*100, 2)), 'A')
+print('CDS\t', str(round(CDS.count('T')/exon*100, 2)), 'T')
+print('CDS\t', str(round(CDS.count('G')/exon*100, 2)), 'G')
+print('CDS\t', str(round(CDS.count('C')/exon*100, 2)), 'C')
+
+print('Intron\t', str(round(IN.count('A')/intron*100, 2)), 'A')
+print('Intron\t', str(round(IN.count('T')/intron*100, 2)), 'T')
+print('Intron\t', str(round(IN.count('G')/intron*100, 2)), 'G')
+print('Intron\t', str(round(IN.count('C')/intron*100, 2)), 'C')
+
+print('MF\t', str(round(MF.count('A')/misc*100, 2)), 'A')
+print('MF\t', str(round(MF.count('T')/misc*100, 2)), 'T')
+print('MF\t', str(round(MF.count('G')/misc*100, 2)), 'G')
+print('MF\t', str(round(MF.count('C')/misc*100, 2)), 'C')
+
+print('RR\t', str(round(RR.count('A')/repeat*100, 2)), 'A')
+print('RR\t', str(round(RR.count('T')/repeat*100, 2)), 'T')
+print('RR\t', str(round(RR.count('G')/repeat*100, 2)), 'G')
+print('RR\t', str(round(RR.count('C')/repeat*100, 2)), 'C')
+
+print('rRNA\t', str(round(rRNA.count('A')/rrna*100, 2)), 'A')
+print('rRNA\t', str(round(rRNA.count('T')/rrna*100, 2)), 'T')
+print('rRNA\t', str(round(rRNA.count('G')/rrna*100, 2)), 'G')
+print('rRNA\t', str(round(rRNA.count('C')/rrna*100, 2)), 'C')
+
+print('tRNA\t', str(round(tRNA.count('A')/trna*100, 2)), 'A')
+print('tRNA\t', str(round(tRNA.count('T')/trna*100, 2)), 'T')
+print('tRNA\t', str(round(tRNA.count('G')/trna*100, 2)), 'G')
+print('tRNA\t', str(round(tRNA.count('C')/trna*100, 2)), 'C')
 
 # close the GFF file
 data2.close()
-
-import sys
-
-usage = sys.argv[0] + ": genome.fasta features.gff"
-
-if len(sys.argv) < 3:
-    print(usage)
-    sys.exit("\nThis script requires both a FASTA file and a GFF file\n")
-
-genome = sys.argv[1]
-gff    = sys.argv[2]
-
-print(gff + "\n" + genome)
