@@ -18,7 +18,7 @@ def nuc_seq(sequence, base, sig_digs=2):
 FS = {}
 
 # Read FASTA file
-data1 = open('watermelon.fsa', 'r')
+data1 = open('watermelon_files/watermelon.fsa', 'r')
 
 # Variable that will hold the genome sequence
 gen = ''
@@ -40,7 +40,7 @@ for line in data1:
 data1.close()
 
 # Read GFF file
-data2 = open('watermelon.gff', 'r')
+data2 = open('watermelon_files/watermelon.gff', 'r')
 
 # Variables for all the feature types 
 CDS     = ''
@@ -84,5 +84,5 @@ data2.close()
 for f, s in FS.items():
     for nucleotide in ['A','T','G','C']:
         (FL, FC) = nuc_seq(type, nucleotide, sig_digs=2)
-        print( + '\t' + len(s) + str(FC))
+        print(str(type) + '\t' + str(len(s)))
     
