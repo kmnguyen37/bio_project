@@ -23,6 +23,11 @@ def nuc_freq(sequence, base, sig_digs=2):
 
     # return the frequency and the length
     return(length, round(freq_of_base, sig_digs))
+
+# define reverse complement
+def rc (seq):
+    bases = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+    return "".join([bases[base] for base in reversed(seq)])
     
 # key = feature type, value = concatenation of all sequences of that type - not useful
 # for anything other than calculating AT/GC content
@@ -88,7 +93,7 @@ for line in gff_in:
 
     # determine the strand, and reverse complement or not
     if( fields[6] == '-' ):
-        fragment = reverse_complement(fragment)
+        fragment = rc(fragment)
 
     # store the big concatenated thing for calculating GC content
     if type in feature_sequences:
@@ -105,15 +110,17 @@ for line in gff_in:
 
         gene_fields = attributes[0].split(' ')
         gene_name = gene_fields[1]
-
+        print(list(str(gene_name)))
+        
+    
         # get the exon number
         if( 'exon' in gene_fields ):
             # print("Has exons: " + attributes[0])
             exon_num = gene_fields[-1]
-            print(gene_name, exon_num)
+            #print(gene_name, exon_num)
+            #print(gene_name)
         # else:
             # print("Doesn't have exons: " + attributes[0])
-
             
     # store this sequence in the gene_sequences hash
 
@@ -121,8 +128,8 @@ for line in gff_in:
 # close the GFF file
 gff_in.close()
     
-for feature, sequence in feature_sequences.items():
-    print(feature + "\t" + str(len(sequence)))
+#for feature, sequence in feature_sequences.items():
+    #print(feature + "\t" + str(len(sequence)))
     
 #for feature_type in list_of_features:
     # loop over the 4 nucleotides
@@ -136,5 +143,3 @@ for feature, sequence in feature_sequences.items():
 # print the output
 #print(cds.count('G'))
 #print(cds.count('C'))
-    
-
